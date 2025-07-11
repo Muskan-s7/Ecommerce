@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercise-18-Backend,Promises,Async Await</title>
+  </head>
+  <body>
+    <script>
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", () => {
+        console.log(xhr.response);
+      });
+      xhr.open("GET", "https://supersimplebackend.dev/greeting");
+      xhr.send();
+
+      fetch("https://supersimplebackend.dev/greeting")
+        .then((response) => {
+          //'.then' waits until the promise(inside fetch-default) get resolved
+          return response.text(); //returns a promise to then,as it is a promise it needs to be resolved and the second 'then' will wait till it resolves
+        })
+        .then((text) => {
+          console.log(`${text}2`);
+        });
+
+      function loadHelloFetch() {
+        const promise = fetch("https://supersimplebackend.dev/greeting")
+          .then((response) => {
+            return response.text(); //returns a promise
+          })
+          .then((text) => {
+            console.log(`${text}3`);
+          });
+        return promise;
+      }
+
+      async function loadHello() {
+        await loadHelloFetch();
+        console.log("next step");
+      }
+      loadHello();
+
+      async function postGreeting() {
+        const response = await fetch(
+          "https://supersimplebackend.dev/greeting",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: "Umar",
+            }),
+          }
+        );
+
+        const text = await response.text();
+        console.log(text);
+      }
+      postGreeting();
+
+      fetch("https://shopix.com")
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log("Your request was blocked by the backend");
+        });
+
+      async function errorFetch() {
+        const response = await fetch(
+          "https://supersimplebackend.dev/greeting",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        try {
+          if (response.status >= 400) {
+            throw response;
+          }
+        } catch (error) {
+          if (error.status === 400) {
+            const json = await error.json(); //returns a promise which needs to be resolved
+            console.log(json);
+          } else {
+            console.log("Network error.Please try again later");
+          }
+        }
+      }
+      errorFetch();
+    </script>
+  </body>
+</html>

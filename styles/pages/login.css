@@ -1,0 +1,14 @@
+body {
+  background-image: url("../../images/login\ \ banner5.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 100%;
+}
+
+.message_box {
+  width: 1%;
+  display: block;
+  border-radius: 5px;
+  line-height: 40px;
+}

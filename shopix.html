@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shopixstore</title>
+
+    <!-- This code is needed for responsive design to work.
+      (Responsive design = make the website look good on
+      smaller screen sizes like a phone or a tablet). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Load a font called Roboto from Google Fonts. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Here are the CSS files for this page. -->
+    <link rel="stylesheet" href="styles/shared/general.css" />
+    <link rel="stylesheet" href="styles/shared/shopix-header.css" />
+    <link rel="stylesheet" href="styles/pages/shopix.css" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!--Bootstarp icons-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div class="shopix-header">
+      <div class="shopix-header-left-section">
+        <a href="shopix.html" class="header-link">
+          <img class="shopix-logo" src="images/icons/shopixLog.jpg" />
+          <img
+            class="shopix-mobile-logo"
+            src="images/icons/Mini shopixBlack.jpg"
+          />
+        </a>
+      </div>
+
+      <!--search box-->
+      <div class="shopix-header-middle-section">
+        <input
+          class="search-bar js-search-bar"
+          type="text"
+          placeholder="Search"
+        />
+
+        <button class="search-button js-search-button">
+          <img class="search-icon" src="images/icons/search-icon.png" />
+        </button>
+      </div>
+
+      <!-- Account Dropdown -->
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          data-bs-toggle="dropdown"
+        >
+          Account
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+          <li><a class="dropdown-item" href="login.html">Logout</a></li>
+        </ul>
+      </div>
+
+      <!--orders & Returns-->
+      <div class="shopix-header-right-section">
+        <a class="orders-link header-link" href="orders.html">
+          <span class="returns-text">Orders</span>
+          <span class="orders-text">& Returns</span>
+        </a>
+
+        <a class="cart-link header-link" href="checkout.html">
+          <img class="cart-icon" src="images/icons/cart-icon.png" />
+          <div class="cart-quantity js-cart-quantity"></div>
+          <div class="cart-text">Cart</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="products-grid js-products-grid"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5 pt-4 pb-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h5 class="mb-3">Shopix</h5>
+            <p>
+              Your one-stop shop for daily essentials, gadgets, and fashion.
+              Fast delivery & top deals every day.
+            </p>
+          </div>
+
+          <div class="col-md-2">
+            <h6>About</h6>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Company</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-white-50 text-decoration-none">Blog</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-2">
+            <h6>Support</h6>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Help Center</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Returns</a
+                >
+              </li>
+              <li>
+                <a href="#" class="text-white-50 text-decoration-none"
+                  >Order Status</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-4">
+            <h6>Subscribe to our newsletter</h6>
+            <form class="d-flex">
+              <input
+                type="email"
+                class="form-control me-2"
+                placeholder="Enter your email"
+              />
+              <button class="btn btn-warning" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+
+        <hr class="bg-white" />
+
+        <div
+          class="d-flex justify-content-between align-items-center flex-wrap"
+        >
+          <p class="mb-0">© 2025 Shopix. All rights reserved.</p>
+          <div>
+            <a href="#" class="text-white-50 me-3 text-decoration-none"
+              >Privacy Policy</a
+            >
+            <a href="#" class="text-white-50 text-decoration-none">Terms</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!--loops through each product and creates all the html-->
+    <script type="module" src="scripts/shopix.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        GoogleAuthProvider,
+        signInWithPopup,
+      } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyD6kQqX5ciSM5MI0yxnZPbDojfDxr49fYA",
+        authDomain: "login-page-28528.firebaseapp.com",
+        projectId: "login-page-28528",
+        storageBucket: "login-page-28528.firebasestorage.app",
+        messagingSenderId: "190386548355",
+        appId: "1:190386548355:web:190e3ae61ddedb3477b5b6",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          // Fill the dropdown values
+          document.getElementById("accountEmail").textContent =
+            user.email || "-";
+          document.getElementById("accountName").textContent =
+            user.displayName || "N/A";
+          document.getElementById("accountLoginTime").textContent =
+            user.metadata.lastSignInTime || "-";
+        }
+      });
+
+      // Logout function
+      function logout() {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            window.location.href = "login.html"; // redirect to login on logout
+          })
+          .catch((error) => {
+            console.error("Logout error:", error);
+            alert("Failed to log out. Try again.");
+          });
+      }
+    </script>
+  </body>
+</html>
